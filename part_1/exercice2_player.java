@@ -16,17 +16,25 @@ public class exercice2_player {
     public static void main(String[] args) {
         Socket server;
         try {
+            // 1. se connecte au serveur
             server = new Socket(host, port);
+
             OutputStream out = server.getOutputStream();
             PrintWriter printer = new PrintWriter(out, true);
             InputStream in = server.getInputStream();
             InputStreamReader isr = new InputStreamReader(in);
             BufferedReader reader = new BufferedReader(isr);
+
+            // 2. est notifié de la couleur qui lui est assigné (blanc ou noir)
             String color = reader.readLine();
             System.out.println("You are playing as " + color);
+            // 3. "attend" son tour pour jouer
             String turn = reader.readLine();
             System.out.println(turn);
+            // 4. déplace un pion quelconque en diagonale
             printer.println("c4 to d5");
+
+            server.close();
 
         } catch (UnknownHostException e) {
 
